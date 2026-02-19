@@ -1,0 +1,121 @@
+:root{
+  --bg:#05070a;
+  --accent:#56c8ff;
+  --card:#0d1115;
+  --muted:#bdbdbd;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:white;
+  font-family:Inter, Arial;
+}
+
+/* NAV */
+.nav{position:sticky;top:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px)}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+.nav-links a{color:white;margin:0 10px;text-decoration:none;transition:.2s}
+.nav-links a:hover{color:var(--accent)}
+.logo{color:var(--accent);font-weight:800;font-size:20px}
+
+/* HERO */
+.about-hero{
+  padding:70px 20px;
+  text-align:center;
+  background:linear-gradient(180deg,#0c1622,#081018);
+}
+.about-hero h1{font-size:42px;margin:0}
+.about-hero p{color:var(--muted);margin-top:10px}
+
+/* MAIN TEXT */
+.about-text{
+  max-width:900px;
+  margin:40px auto;
+  padding:0 20px;
+}
+.about-text p{
+  font-size:18px;
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.6s ease;
+}
+
+/* MISSION & VISION */
+.mission-vision{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  padding:40px 20px;
+}
+
+.mv-card{
+  background:var(--card);
+  padding:25px;
+  width:350px;
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  opacity:0;
+  transform:translateY(20px);
+  transition:.6s ease;
+}
+
+.mv-card h2{color:white;margin-bottom:10px}
+.mv-card p{color:var(--muted);line-height:1.6}
+
+/* WHY CHOOSE US */
+.choose{
+  padding:40px 20px;
+  text-align:center;
+}
+
+.choose h2{
+  margin-bottom:20px;
+  font-size:32px;
+}
+
+.choose-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+}
+
+.choose-card{
+  width:260px;
+  background:var(--card);
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  opacity:0;
+  transform:translateY(20px);
+  transition:.6s ease;
+}
+
+.choose-card .icon{
+  font-size:40px;
+  margin-bottom:10px;
+  color:var(--accent);
+}
+
+.choose-card h3{
+  color:white;
+  margin-bottom:8px;
+}
+
+.choose-card p{
+  font-size:15px;
+  color:var(--muted);
+}
+
+/* ANIMATION TRIGGER */
+.show{
+  opacity:1 !important;
+  transform:translateY(0) !important;
+}

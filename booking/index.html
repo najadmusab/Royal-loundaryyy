@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Royal Laundry — Booking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/booking/style.css">
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="bgParticles"></canvas>
+
+<!-- ======================== NAV ======================== -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#00f5d4" stroke-width="1.5"/><circle cx="20" cy="20" r="10" stroke="#00f5d4" stroke-width="1" stroke-dasharray="3 2"/><circle cx="20" cy="20" r="3" fill="#00f5d4"/></svg>
+      </div>
+      <span>Royal<em>Laundry</em></span>
+    </div>
+    <div class="nav-links">
+       <a href="/index.html">Home</a>
+      <a href="#services">Services</a>
+      <a href="#booking">Book Now</a>
+      <button id="themeToggle" class="theme-toggle">
+  🌙
+</button>
+
+      <a href="tel:9526226011">📞 9526226011</a>
+    </div>
+    <a href="#booking" class="nav-cta">Start Booking</a>
+    <button class="nav-hamburger" id="navHamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<section id="hero">
+  <div class="hero-bg-layers">
+    <div class="hero-layer l1"></div>
+    <div class="hero-layer l2"></div>
+    <div class="hero-layer l3"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Laundry Service</div>
+    <h1 class="hero-title">
+      <em>Delivered</em> to<br>
+      Your Door.
+    </h1>
+    <p class="hero-desc">
+      White-glove garment care. Pickup & delivery. 
+      24-hour turnaround. Over 50,000 happy families.
+    </p>
+    <div class="hero-ctas">
+      <a href="#booking" class="btn-primary hero-btn">
+        <span>Book Pickup Now</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="tel:9526226011" class="btn-ghost">
+        <span>📞 Call Us</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">50k+</span><span class="stat-label">Orders</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Rating</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">24hr</span><span class="stat-label">Delivery</span></div>
+    </div>
+  </div>
+
+  <div class="hero-3d-wrap">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-3d-glow"></div>
+    <div class="water-ring r1"></div>
+    <div class="water-ring r2"></div>
+    <div class="water-ring r3"></div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-dot"></div>
+    <span>Scroll to book</span>
+  </div>
+</section>
+
+<!-- ======================== BOOKING FLOW ======================== -->
+<section id="booking">
+  <!-- STEP PROGRESS -->
+  <div class="step-progress" id="stepProgress">
+    <div class="step-track">
+      <div class="step-fill" id="stepFill"></div>
+    </div>
+    <div class="step-item active" data-step="1">
+      <div class="step-dot"><span>1</span></div>
+      <div class="step-label">Service</div>
+    </div>
+    <div class="step-item" data-step="2">
+      <div class="step-dot"><span>2</span></div>
+      <div class="step-label">Clothes</div>
+    </div>
+    <div class="step-item" data-step="3">
+      <div class="step-dot"><span>3</span></div>
+      <div class="step-label">Add-ons</div>
+    </div>
+    <div class="step-item" data-step="4">
+      <div class="step-dot"><span>4</span></div>
+      <div class="step-label">Pickup</div>
+    </div>
+    <div class="step-item" data-step="5">
+      <div class="step-dot"><span>5</span></div>
+      <div class="step-label">Address</div>
+    </div>
+    <div class="step-item" data-step="6">
+      <div class="step-dot"><span>6</span></div>
+      <div class="step-label">Confirm</div>
+    </div>
+  </div>
+
+  <div class="booking-layout">
+    <!-- MAIN FORM AREA -->
+    <div class="booking-main">
+
+      <!-- ===== STEP 1: SERVICE ===== -->
+      <div class="booking-step active" id="step1">
+        <div class="step-header">
+          <div class="step-number">01</div>
+          <div>
+            <h2 class="step-title">Choose Your Service</h2>
+            <p class="step-sub">Select the laundry service that fits your needs</p>
+          </div>
+        </div>
+        <div class="service-grid" id="serviceGrid">
+          <div class="service-card" data-service="Family Laundry" data-base="0">
+            <div class="service-icon-wrap">
+              <canvas class="service-icon-canvas" id="svc1" width="80" height="80"></canvas>
+            </div>
+            <div class="service-info">
+              <h3>Family Laundry</h3>
+              <p>Complete household wash & fold for the whole family</p>
+              <div class="service-tag">Most Popular</div>
+            </div>
+            <div class="service-select-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+          <div class="service-card" data-service="Catering & Events" data-base="0">
+            <div class="service-icon-wrap">
+              <canvas class="service-icon-canvas" id="svc2" width="80" height="80"></canvas>
+            </div>
+            <div class="service-info">
+              <h3>Catering & Events</h3>
+              <p>Table linens, napkins & event fabric bulk cleaning</p>
+              <div class="service-tag">Bulk Orders</div>
+            </div>
+            <div class="service-select-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+          <div class="service-card" data-service="Premium Care" data-base="0">
+            <div class="service-icon-wrap">
+              <canvas class="service-icon-canvas" id="svc3" width="80" height="80"></canvas>
+            </div>
+            <div class="service-info">
+              <h3>Premium Care</h3>
+              <p>Designer & delicate garments with specialized treatment</p>
+              <div class="service-tag premium-tag">Luxury</div>
+            </div>
+            <div class="service-select-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+          <div class="service-card" data-service="Curtain Cleaning" data-base="0">
+            <div class="service-icon-wrap">
+              <canvas class="service-icon-canvas" id="svc4" width="80" height="80"></canvas>
+            </div>
+            <div class="service-info">
+              <h3>Curtain Cleaning</h3>
+              <p>Full-length curtains & drapes deep cleaned & pressed</p>
+              <div class="service-tag">Specialist</div>
+            </div>
+            <div class="service-select-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-next" id="s1Next" disabled>Continue to Clothes →</button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 2: CLOTHES ===== -->
+      <div class="booking-step" id="step2">
+        <div class="step-header">
+          <div class="step-number">02</div>
+          <div>
+            <h2 class="step-title">Select Your Clothes</h2>
+            <p class="step-sub">Choose items and set quantity for each piece</p>
+          </div>
+        </div>
+
+        <!-- CATEGORY TABS -->
+        <div class="cat-tabs">
+          <button class="cat-tab active" data-cat="daily">👕 Daily Wear</button>
+          <button class="cat-tab" data-cat="traditional">👗 Traditional</button>
+          <button class="cat-tab" data-cat="winter">🧥 Winter Wear</button>
+          <button class="cat-tab" data-cat="home">🛏 Home Fabrics</button>
+        </div>
+
+        <!-- CLOTH ITEMS GRID -->
+        <div class="cloth-grid" id="clothGrid"></div>
+
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(1)">← Back</button>
+          <button class="btn-next" id="s2Next" onclick="goStep(3)">Continue to Add-ons →</button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 3: ADD-ONS ===== -->
+      <div class="booking-step" id="step3">
+        <div class="step-header">
+          <div class="step-number">03</div>
+          <div>
+            <h2 class="step-title">Premium Add-ons</h2>
+            <p class="step-sub">Enhance your laundry experience with premium services</p>
+          </div>
+        </div>
+        <div class="addons-grid">
+          <div class="addon-card" data-addon="Steam Iron" data-price="50">
+            <div class="addon-icon">🔥</div>
+            <div class="addon-info">
+              <h4>Steam Iron</h4>
+              <p>Crisp, wrinkle-free finish on every garment</p>
+            </div>
+            <div class="addon-right">
+              <span class="addon-price">+₹50</span>
+              <label class="toggle-switch">
+                <input type="checkbox" class="addon-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="addon-card" data-addon="Stain Removal" data-price="80">
+            <div class="addon-icon"></div>
+            <div class="addon-info">
+              <h4>Stain Removal</h4>
+              <p>Advanced enzyme treatment for tough stains</p>
+            </div>
+            <div class="addon-right">
+              <span class="addon-price">+₹80</span>
+              <label class="toggle-switch">
+                <input type="checkbox" class="addon-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="addon-card" data-addon="Perfume Finish" data-price="40">
+            <div class="addon-icon">🌸</div>
+            <div class="addon-info">
+              <h4>Perfume Finish</h4>
+              <p>Luxury fragrance applied post-wash</p>
+            </div>
+            <div class="addon-right">
+              <span class="addon-price">+₹40</span>
+              <label class="toggle-switch">
+                <input type="checkbox" class="addon-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="addon-card" data-addon="Express Delivery" data-price="100">
+            <div class="addon-icon">⚡</div>
+            <div class="addon-info">
+              <h4>Express Delivery</h4>
+              <p>6-hour turnaround guaranteed delivery</p>
+            </div>
+            <div class="addon-right">
+              <span class="addon-price">+₹100</span>
+              <label class="toggle-switch">
+                <input type="checkbox" class="addon-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="addon-card" data-addon="Fabric Protection" data-price="60">
+            <div class="addon-icon">🛡️</div>
+            <div class="addon-info">
+              <h4>Fabric Protection</h4>
+              <p>Anti-shrink & color-lock coating applied</p>
+            </div>
+            <div class="addon-right">
+              <span class="addon-price">+₹60</span>
+              <label class="toggle-switch">
+                <input type="checkbox" class="addon-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- COUPON -->
+        <div class="coupon-section">
+          <h4>🎟 Have a Coupon Code?</h4>
+          <div class="coupon-row">
+            <input type="text" id="couponInput" placeholder="Enter coupon code..." class="glass-input">
+            <button class="btn-coupon" onclick="applyCoupon()">Apply</button>
+          </div>
+          <div class="coupon-msg" id="couponMsg"></div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(2)">← Back</button>
+          <button class="btn-next" onclick="goStep(4)">Continue to Pickup →</button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 4: PICKUP ===== -->
+      <div class="booking-step" id="step4">
+        <div class="step-header">
+          <div class="step-number">04</div>
+          <div>
+            <h2 class="step-title">Pickup Details</h2>
+            <p class="step-sub">When should we collect your clothes?</p>
+          </div>
+        </div>
+
+        <div class="pickup-form">
+          <div class="form-group">
+            <label class="form-label">Pickup Date</label>
+            <input type="date" id="pickupDate" class="glass-input" min="">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Time Slot</label>
+            <div class="time-slots" id="timeSlots">
+              <div class="time-slot" data-time="7am - 9am">🌅 7am – 9am</div>
+              <div class="time-slot" data-time="9am - 11am">☀️ 9am – 11am</div>
+              <div class="time-slot" data-time="11am - 1pm">🌤 11am – 1pm</div>
+              <div class="time-slot" data-time="2pm - 4pm">🌞 2pm – 4pm</div>
+              <div class="time-slot" data-time="4pm - 6pm">🌇 4pm – 6pm</div>
+              <div class="time-slot" data-time="6pm - 8pm">🌆 6pm – 8pm</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Delivery Speed</label>
+            <div class="delivery-options">
+              <div class="delivery-opt" data-speed="Standard (24-48 hrs)" data-extra="0">
+                <span class="dopt-icon">🚚</span>
+                <div>
+                  <strong>Standard</strong>
+                  <span>24–48 hours</span>
+                </div>
+                <span class="dopt-price">Free</span>
+              </div>
+              <div class="delivery-opt" data-speed="Express (6-12 hrs)" data-extra="100">
+                <span class="dopt-icon">⚡</span>
+                <div>
+                  <strong>Express</strong>
+                  <span>6–12 hours</span>
+                </div>
+                <span class="dopt-price">+₹100</span>
+              </div>
+              <div class="delivery-opt" data-speed="Same Day" data-extra="150">
+                <span class="dopt-icon">🏃</span>
+                <div>
+                  <strong>Same Day</strong>
+                  <span>By evening</span>
+                </div>
+                <span class="dopt-price">+₹150</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(3)">← Back</button>
+          <button class="btn-next" id="s4Next" onclick="validatePickup()">Continue to Address →</button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 5: ADDRESS ===== -->
+      <div class="booking-step" id="step5">
+        <div class="step-header">
+          <div class="step-number">05</div>
+          <div>
+            <h2 class="step-title">Delivery Address</h2>
+            <p class="step-sub">Where should we pickup & deliver your laundry?</p>
+          </div>
+        </div>
+
+        <div class="address-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="addrName" class="glass-input" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" id="addrPhone" class="glass-input" placeholder="10-digit mobile">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full Address *</label>
+            <textarea id="addrFull" class="glass-input" rows="3" placeholder="House/Flat no., Street, Area..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">City *</label>
+              <input type="text" id="addrCity" class="glass-input" placeholder="City">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pincode *</label>
+              <input type="text" id="addrPin" class="glass-input" placeholder="6-digit pincode">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Landmark</label>
+            <input type="text" id="addrLandmark" class="glass-input" placeholder="Near landmark (optional)">
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(4)">← Back</button>
+          <button class="btn-next" id="s5Next" onclick="validateAddress()">Review Summary →</button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 6: CONFIRM ===== -->
+      <div class="booking-step" id="step6">
+        <div class="step-header">
+          <div class="step-number">06</div>
+          <div>
+            <h2 class="step-title">Order Confirmed!</h2>
+            <p class="step-sub">Review your order and send via WhatsApp</p>
+          </div>
+        </div>
+
+        <div class="confirm-summary" id="confirmSummary"></div>
+
+        <div class="whatsapp-cta-wrap">
+          <div class="wa-badge">💬 Send via WhatsApp</div>
+          <button class="btn-whatsapp" id="waBtn" onclick="sendWhatsApp()">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Confirm Booking via WhatsApp
+          </button>
+          <p class="wa-note">You'll be redirected to WhatsApp with your complete order details pre-filled</p>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(5)">← Edit Details</button>
+        </div>
+      </div>
+
+    </div><!-- /booking-main -->
+
+    <!-- ORDER SUMMARY SIDEBAR -->
+    <div class="summary-sidebar" id="summarySidebar">
+      <div class="summary-card" id="summaryCard">
+        <div class="summary-header">
+          <h3>Order Summary</h3>
+          <div class="summary-badge" id="summaryItemCount">0 items</div>
+        </div>
+
+        <div class="summary-service" id="summaryService">
+          <span class="sum-label">Service</span>
+          <span class="sum-value" id="sumService">Not selected</span>
+        </div>
+
+        <div class="summary-clothes" id="summaryClothes">
+          <div class="sum-label">Clothes Selected</div>
+          <div class="sum-clothes-list" id="sumClothesList">
+            <div class="sum-empty">No items yet</div>
+          </div>
+        </div>
+
+        <div class="summary-addons" id="summaryAddons" style="display:none">
+          <div class="sum-label">Add-ons</div>
+          <div class="sum-addons-list" id="sumAddonsList"></div>
+        </div>
+
+        <div class="summary-pickup" id="summaryPickup" style="display:none">
+          <div class="sum-label">Pickup Details</div>
+          <div id="sumPickupDetails"></div>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-pricing">
+          <div class="sum-row">
+            <span>Subtotal</span>
+            <span id="sumSubtotal">₹0</span>
+          </div>
+          <div class="sum-row" id="sumAddonRow" style="display:none">
+            <span>Add-ons</span>
+            <span id="sumAddonTotal">₹0</span>
+          </div>
+          <div class="sum-row" id="sumDeliveryRow" style="display:none">
+            <span>Delivery</span>
+            <span id="sumDeliveryCharge">₹0</span>
+          </div>
+          <div class="sum-row" id="sumDiscountRow" style="display:none">
+            <span>Discount</span>
+            <span id="sumDiscount" class="discount-text">-₹0</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="sum-row total-row">
+            <span>Total</span>
+            <span class="total-price" id="sumTotal">₹0</span>
+          </div>
+        </div>
+
+        <div class="ripple-wrap" id="rippleWrap">
+          <a href="#booking" class="btn-sum-book" onclick="goStep(6)">
+            Review & Confirm
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /booking-layout -->
+</section>
+
+<!-- ======================== TRUST SECTION ======================== -->
+<section id="trust">
+  <div class="section-label">What Clients Say</div>
+  <h2 class="section-title">Trusted by <em>50,000+</em><br>Happy Families</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"The Premium Care service saved my silk sarees. Absolutely flawless results and the packaging was luxury-level!"</p>
+      <div class="reviewer"><div class="avatar">P</div><div><strong>Priya Nair</strong><span>Kochi</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Express delivery in 6 hours! My whole family's clothes fresh and folded perfectly. Worth every rupee."</p>
+      <div class="reviewer"><div class="avatar">R</div><div><strong>Rahul Menon</strong><span>Thrissur</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Booked via WhatsApp in 2 minutes. The perfume finish addon is addictive — clothes smell divine for days!"</p>
+      <div class="reviewer"><div class="avatar">A</div><div><strong>Aisha Khan</strong><span>Kozhikode</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE STICKY SUMMARY -->
+<div class="mobile-summary" id="mobileSummary">
+  <div class="mobile-sum-row">
+    <span id="mobItems">0 items selected</span>
+    <span class="mobile-total" id="mobTotal">₹0</span>
+  </div>
+  <button class="btn-mob-confirm" onclick="document.getElementById('summarySidebar').scrollIntoView({behavior:'smooth'})">
+    View Summary
+  </button>
+</div>
+
+<!-- RIPPLE EFFECT OVERLAY -->
+<div class="ripple-click" id="rippleClick"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="/booking/app.js"></script>
+</body>
+</html>
